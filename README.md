@@ -11,8 +11,7 @@ Running this Playbook
 Quick Steps:
 1. Obtain the playbook
 
-git clone https://github.com/do-community/ansible-playbooks.git
-cd ansible-playbooks/docker_ubuntu1804
+git clone https://github.com/theavier/ansible-docker.git
 
 2. Customize Options
 
