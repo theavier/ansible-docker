@@ -45,7 +45,17 @@
          name: "{{ ansible_user }}"
          groups: docker
          append: yes
-
+     
+     - name: install docker-compose
+       get_url:
+         url: "https://github.com/docker/compose/releases/download/v1.25.2/docker-compose-Linux-x86_64"
+         dest: /usr/local/bin/docker-compose
+         
+     - name: change permissions on docker-compose
+       file:
+         dest: /usr/local/bin/docker-compose
+         mode: +x
+         
 #  - name: Pull default Docker image
    #    docker_image:
    #      name: "{{ default_container_image }}"
