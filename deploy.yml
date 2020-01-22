@@ -40,8 +40,13 @@
        apt:
          name:
            - docker-ce
-         
-   #  - name: Pull default Docker image
+     - name: add existing user "{{ ansible_user }}" to dockergroup
+       user:
+         name: "{{ ansible_user }}"
+         groups: docker
+         append: yes
+
+#  - name: Pull default Docker image
    #    docker_image:
    #      name: "{{ default_container_image }}"
    #      source: pull
