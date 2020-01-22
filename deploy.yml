@@ -1,0 +1,52 @@
+ - name: apply common configuration to vm
+   hosts: all
+   become: true
+   tasks:
+     - name: debug
+       debug: var=ansible_env.HOME
+       
+     - name: create file
+       file:
+         path: {{ansible_env.HOME}}/myfile.txt
+         state: touch
+     
+     - name: install preq        
+       apt:
+         name:
+          - software-properties-common
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - gnupg2
+         state: present   
+     
+     - name: Add an Apt signing key, uses whichever key is at the URL
+       apt_key:
+         url: https://download.docker.com/linux/debian/gpg
+         state: present
+     
+     - name: Add Docker Repository
+       apt_repository:
+         repo: deb https://download.docker.com/linux/ubuntu bionic stable
+         state: present         
+         
+     - name: Update apt and install docker-ce       
+       apt: update_cache=yes name=docker-ce state=latest
+         
+     - name: install docker       
+       apt: 
+         - docker-ce
+         
+     - name: Pull default Docker image
+       docker_image:
+         name: "{{ default_container_image }}"
+         source: pull
+     
+    # Creates the number of containers defined by the variable create_containers, using values from vars file
+    - name: Create default containers
+      docker_container:
+        name: "{{ default_container_name }}{{ item }}"
+        image: "{{ default_container_image }}"
+        command: "{{ default_container_command }}"
+        state: present
+      with_sequence: count={{ create_containers }}
