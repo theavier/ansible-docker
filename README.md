@@ -1,7 +1,7 @@
 # ansible-docker
 
 
-Running this Playbook will install docker locally 
+Running this Playbook will install docker and docker-compose locally using ansible 
 
 1. Obtain the playbook
 git clone https://github.com/theavier/ansible-docker.git
