@@ -7,4 +7,4 @@ Running this Playbook will install docker and docker-compose locally using ansib
 git clone https://github.com/theavier/ansible-docker.git
 
 2. Run the Playbook
-ansible-playbook -i hosts  deploy.yml
+ansible-playbook -i hosts  deploy.yml --ask-become-pass
